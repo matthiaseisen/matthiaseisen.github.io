@@ -1,0 +1,50 @@
+div.page {
+    margin: 0 auto;
+    max-width: 720px;
+}
+
+h1.title {
+    margin: 1em 0 0.5em 0;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 3.2em;
+}
+
+p.about {
+    margin: 1em 0 2em 0;
+}
+
+p.details {
+    border-top: solid 1px #ddd;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding-top: 1em;
+    font-size: 0.8em;
+}
+
+ul.list-inline li.active {
+    font-weight: bold;
+}
+
+ul.list-inline {
+    margin-bottom: 2em;
+}
+
+img {
+    border: solid 1px #ccc;
+}
+
+div.signup-form { 
+    padding: 1em;
+    background-color: #624ea7; 
+    text-align: center;
+}
+
+label {
+    font-weight: normal;
+    color: #fff;
+}
+
+div.cheat-sheet {
+    text-align: center;
+    display: inline-block;
+}

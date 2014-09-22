@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content=""/>
+      <meta name="keywords" content="['Python', 'PyCrypto']"/>
+      <meta name="author" content="Matthias Eisen">
+      <title>
+HMAC: SHA-1 (printable digest) | PyCrypto
+</title>
+
+      <!-- Bootstrap -->
+      <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/assets/css/pp.css" rel="stylesheet">
+      
+<link href="/assets/css/pygments/pastie.css" rel="stylesheet">
+
+      <script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-19171136-1', 'auto');
+        ga('send', 'pageview');
+      </script>  
+      
+      
+      <link rel="shortcut icon" href="/pp_favicon.ico">
+
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+    <body>
+        <div class="container">
+            <div class="page">
+                <h1 class="title">Python Patterns</h1>
+                <p class="about">A directory of reusable Python solutions.
+<br /><br /><a href="https://twitter.com/pythonpatterns" class="twitter-follow-button" data-show-count="false">Follow @pythonpatterns</a>
+</p>
+                
+<ol class="breadcrumb">
+    <li><a href="/pp/">Home</a></li>
+    <li><a href="/pp/topics/t030/">Cryptography</a></li><li><a href="/pp/topics/t031/">Hashing</a></li>
+    <li><a href="/pp/topics/t032/">PyCrypto</a></li>
+    <li class="active">HMAC: SHA-1 (printable digest)</li>
+</ol>
+
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">Crypto.Hash</span> <span class="kn">import</span> <span class="n">HMAC</span><span class="p">,</span> <span class="n">SHA</span>
+
+<span class="n">key</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;secret key&#39;</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">HMAC</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;secret text&#39;</span><span class="p">,</span> <span class="n">SHA</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="output">
+
+<div class="codehilite"><pre>c8dd9650ef1c62c414a6cb0583710a7cd7c3dfd0
+</pre></div>
+
+
+</div>
+
+<div class="codehilite"><pre><span class="n">b</span> <span class="o">=</span> <span class="n">HMAC</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">digestmod</span><span class="o">=</span><span class="n">SHA</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;secret text&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">())</span>
+</pre></div>
+
+
+<div class="output">
+
+<div class="codehilite"><pre>c8dd9650ef1c62c414a6cb0583710a7cd7c3dfd0
+</pre></div>
+
+
+</div>
+
+<p><br />
+<small>Tags: <a href="/pp/tags/crypto/">crypto</a>, <a href="/pp/tags/hash/">hash</a>, <a href="/pp/tags/hmac/">hmac</a>, <a href="/pp/tags/sha/">sha</a>, <a href="/pp/tags/sha-1/">sha-1</a></small></p>
+<p><br /></p>
+<h4>Related Patterns</h4>
+<p><ul class="toc toplevel">
+<li class="toc"><span class="path">Cryptography / Hashing / PyCrypto /</span> <a href="/pp/patterns/p0192/">HMAC: MD5 (printable digest)</a><li class="toc"><span class="path">Cryptography / Hashing / PyCrypto /</span> <a href="/pp/patterns/p0195/">MD5 (printable digest)</a><li class="toc"><span class="path">Cryptography / Hashing / PyCrypto /</span> <a href="/pp/patterns/p0191/">SHA-256 (printable digest)</a><li class="toc"><span class="path">Cryptography / Hashing / PyCrypto /</span> <a href="/pp/patterns/p0193/">HMAC: SHA-256 (printable digest)</a>
+</ul></p>
+<br />
+<small>Found an error? <a href="mailto:pp@matthiaseisen.com">Please let me know</a>.</small>
+<br />
+
+                <div class="footer">
+                    <div class="footer-block">
+                        <strong>Follow Python Patterns</strong><br />
+                        <ul class="list-unstyled">
+                            <li><a href="/pp/newsletter/">Email</a></li>
+                            <li><a href="https://twitter.com/pythonpatterns" target="_blank">Twitter</a></li>
+                            <li><a href="https://github.com/pythonpatterns" target="_blank">GitHub</a></li>
+                            <li><a href="https://plus.google.com/118332190498743014912/" target="_blank">Google+</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-block">
+                        <strong>More</strong><br />
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:pp@matthiaseisen.com">Contact me</a></li>
+                            <li>&nbsp;</li>
+                            <li>&nbsp;</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script> 
+
+    </body>
+</html>

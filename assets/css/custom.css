@@ -1,0 +1,33 @@
+h1.title {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 3.2em;
+}
+h1.title.article {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 2em;
+}
+article {
+    margin: 0 auto;
+    max-width: 730px;
+}
+ul.top-nav {
+    border-top: solid 1px #111;
+    border-bottom: solid 1px #111;
+    margin-bottom: 2em;
+    padding: 5px 0;
+}
+p.author.article {
+    margin: 3em 0 4.5em 0;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    text-align: center;
+}
+footer.article {
+    margin-top: 6em;
+    margin-bottom: 2em;
+    text-align: center;
+    font-size: 0.8em;
+}
+td.center {
+    text-align:center;
+}

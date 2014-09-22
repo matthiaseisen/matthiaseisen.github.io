@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content=""/>
+      <meta name="keywords" content="['Python']"/>
+      <meta name="author" content="Matthias Eisen">
+      <title>rzd7r.py | Python Patterns</title>
+
+      <!-- Bootstrap -->
+      <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/assets/css/code.css" rel="stylesheet">
+      <link href="/assets/css/pygments/pastie.css" rel="stylesheet">
+      <script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-19171136-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+      
+	
+      <link rel="shortcut icon" href="/pp_favicon.ico">
+
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+    <body>
+        <div class="codehilite"><pre><span class="c"># The MIT License (MIT)</span>
+<span class="c">#</span>
+<span class="c"># Copyright (c) 2014 Matthias Eisen (http://www.matthiaseisen.com)</span>
+<span class="c">#</span>
+<span class="c"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c"># in the Software without restriction, including without limitation the rights</span>
+<span class="c"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c"># furnished to do so, subject to the following conditions:</span>
+<span class="c">#</span>
+<span class="c"># The above copyright notice and this permission notice shall be included in</span>
+<span class="c"># all copies or substantial portions of the Software.</span>
+<span class="c">#</span>
+<span class="c"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
+<span class="c"># THE SOFTWARE.</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseDocTemplate</span><span class="p">,</span>
+    <span class="n">PageTemplate</span><span class="p">,</span>
+    <span class="n">Frame</span><span class="p">,</span>
+    <span class="n">Table</span><span class="p">,</span>
+    <span class="n">TableStyle</span><span class="p">,</span>
+    <span class="n">PageBreak</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib.colors</span> <span class="kn">import</span> <span class="n">lightgrey</span><span class="p">,</span> <span class="n">black</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib.units</span> <span class="kn">import</span> <span class="n">cm</span>
+
+<span class="k">def</span> <span class="nf">list_of_columns</span><span class="p">(</span>
+    <span class="n">numbers</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">76</span><span class="p">),</span>
+    <span class="n">num_of_columns</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">num_of_rows</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">):</span>
+    <span class="n">slice_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_of_columns</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+                <span class="n">numbers</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">slice_length</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">slice_length</span><span class="p">],</span>
+                <span class="n">num_of_rows</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_of_columns</span><span class="p">)</span>
+    <span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">list_of_rows</span><span class="p">(</span><span class="n">list_of_columns</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">list_of_columns</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">insert_free_spaces</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="n">n</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">coords</span> <span class="k">else</span> <span class="bp">None</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span>
+    <span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">prepend_title_row</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;I&#39;</span><span class="p">,</span> <span class="s">&#39;N&#39;</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">,</span> <span class="s">&#39;O&#39;</span><span class="p">]]</span> <span class="o">+</span> <span class="n">numbers</span>
+
+<span class="k">def</span> <span class="nf">card_data</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">prepend_title_row</span><span class="p">(</span>
+        <span class="n">insert_free_spaces</span><span class="p">(</span>
+            <span class="n">list_of_rows</span><span class="p">(</span>
+                <span class="n">list_of_columns</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">stylesheet</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s">&#39;bingo&#39;</span><span class="p">:</span> <span class="n">TableStyle</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">(</span><span class="s">&#39;FONTSIZE&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">28</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;LEADING&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">28</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;FONTNAME&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s">&#39;Helvetica-Bold&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;INNERGRID&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">black</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;BOX&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">black</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;BOX&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">black</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;ALIGN&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#39;CENTER&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;VALIGN&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#39;MIDDLE&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;BACKGROUND&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">lightgrey</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;BACKGROUND&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">lightgrey</span><span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">pages</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">,</span> <span class="n">stylesheet</span><span class="p">):</span>
+    <span class="n">pages</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">Table</span><span class="p">(</span>
+                <span class="n">card_data</span><span class="p">(),</span>
+                <span class="mi">5</span> <span class="o">*</span> <span class="p">[</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">cm</span><span class="p">],</span>  <span class="c"># column widths</span>
+                <span class="mi">6</span> <span class="o">*</span> <span class="p">[</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">cm</span><span class="p">],</span>  <span class="c"># row heights</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">stylesheet</span><span class="p">[</span><span class="s">&#39;bingo&#39;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="n">PageBreak</span><span class="p">()</span>
+        <span class="p">]</span> <span class="o">*</span> <span class="n">number_of_pages</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pages</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">p</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">build_pdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">pages</span><span class="p">):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">BaseDocTemplate</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">addPageTemplates</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">PageTemplate</span><span class="p">(</span>
+                <span class="n">frames</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">Frame</span><span class="p">(</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">leftMargin</span><span class="p">,</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">bottomMargin</span><span class="p">,</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+                        <span class="nb">id</span><span class="o">=</span><span class="bp">None</span>
+                    <span class="p">),</span>
+                <span class="p">]</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">pages</span><span class="p">)</span>
+
+<span class="n">build_pdf</span><span class="p">(</span><span class="s">&#39;1000-bingo-cards.pdf&#39;</span><span class="p">,</span> <span class="n">pages</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">stylesheet</span><span class="p">()))</span>
+</pre></div>
+    </body>
+</html>

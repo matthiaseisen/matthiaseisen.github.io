@@ -1,0 +1,35 @@
+div.signup-form { 
+    padding: 1em;
+    background-color: #624ea7; 
+    text-align: center;
+}
+
+div.page {
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 1em;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 3.2em;
+}
+
+p.slogan {
+    margin: 2em 0;
+}
+
+label {
+    font-weight: normal;
+    color: #fff;
+}
+
+p.example-issue {
+    margin: 2em 0;
+}
+
+p.details {
+    margin: 2em 0;
+    font-size: 0.8em;
+}

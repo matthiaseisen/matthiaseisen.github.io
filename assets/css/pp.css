@@ -1,0 +1,106 @@
+div.page {
+    margin: 0 auto;
+    max-width: 720px;
+}
+
+h1.title {
+    /*margin: 1em 0 1em 0;*/
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 3.2em;
+}
+
+pre {
+	font-size: 16px;
+}
+
+pre.code {
+	font-size: 12px;
+}
+
+p.about {
+    margin-bottom: 1em;
+}
+span.path {
+	color: #999;
+	font-size: 0.9em;
+}
+div.footer {
+    border-top: solid 1px #ddd;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    font-size: 0.8em;
+    padding-top: 2em;
+}
+
+div.footer-block {
+    display: inline-block;
+    margin-right: 25px;
+}
+
+ul.list-inline li.active {
+    font-weight: bold;
+}
+
+ul.list-inline {
+    margin-bottom: 2em;
+}
+
+ul.toc {
+	list-style-type: none;
+}
+
+ul.toplevel {
+	padding-left: 0;
+}
+
+img {
+    border: none 1px #ccc;
+}
+
+img.border {
+    border: solid 1px #ccc;
+}
+
+div.signup-form { 
+    padding: 1em;
+    background-color: #624ea7; 
+    text-align: center;
+}
+
+label {
+    font-weight: normal;
+    color: #fff;
+}
+
+div.cheat-sheet {
+    text-align: center;
+    display: inline-block;
+}
+li.toc {
+    margin-top: 5px;
+}
+div.output {
+    border-left: solid 5px #b29ef7;
+    border-left: solid 5px #ccc;
+}
+
+ol.breadcrumb {
+	background-color: #fff;
+	padding-left: 0;
+	border-style: solid none solid none;
+	border-color: #999;
+	border-width: 1px;
+	margin-top: 0;
+	margin-bottom: 2em;
+	border-radius: 0;
+}
+
+.breadcrumb > li + li:before {
+  content: "/\00a0";
+  padding: 0 5px;
+  color: #999;
+}
+
+.breadcrumb > .active {
+  color: #111;
+}

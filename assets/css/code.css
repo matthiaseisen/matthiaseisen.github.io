@@ -1,0 +1,71 @@
+div.page {
+    margin: 0 auto;
+    max-width: 920px;
+}
+
+h1.title {
+    /*margin: 1em 0 1em 0;*/
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 3.2em;
+}
+
+pre {
+	font-size: 14px;
+}
+
+p.about {
+    margin-bottom: 2em;
+}
+
+div.footer {
+    border-top: solid 1px #ddd;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    font-size: 0.8em;
+    padding-top: 2em;
+    text-align: center;
+}
+
+div.footer-block {
+    display: inline-block;
+    margin-right: 25px;
+}
+
+ul.list-inline li.active {
+    font-weight: bold;
+}
+
+ul.list-inline {
+    margin-bottom: 2em;
+}
+
+img {
+    border: none 1px #ccc;
+}
+
+img.border {
+    border: solid 1px #ccc;
+}
+
+div.signup-form { 
+    padding: 1em;
+    background-color: #624ea7; 
+    text-align: center;
+}
+
+label {
+    font-weight: normal;
+    color: #fff;
+}
+
+div.cheat-sheet {
+    text-align: center;
+    display: inline-block;
+}
+li.toc {
+    margin-bottom: 5px;
+}
+div.output {
+    border-left: solid 5px #b29ef7;
+    border-left: solid 5px #ccc;
+}

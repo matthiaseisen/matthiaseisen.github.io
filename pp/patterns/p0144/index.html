@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content=""/>
+      <meta name="keywords" content="['Python', 'Plotting']"/>
+      <meta name="author" content="Matthias Eisen">
+      <title>
+Venn diagram, 2 circles | Plotting
+</title>
+
+      <!-- Bootstrap -->
+      <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/assets/css/pp.css" rel="stylesheet">
+      
+<link href="/assets/css/pygments/pastie.css" rel="stylesheet">
+
+      <script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-19171136-1', 'auto');
+        ga('send', 'pageview');
+      </script>  
+      
+      
+      <link rel="shortcut icon" href="/pp_favicon.ico">
+
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+    <body>
+        <div class="container">
+            <div class="page">
+                <h1 class="title">Python Patterns</h1>
+                <p class="about">A directory of reusable Python solutions.
+<br /><br /><a href="https://twitter.com/pythonpatterns" class="twitter-follow-button" data-show-count="false">Follow @pythonpatterns</a>
+</p>
+                
+<ol class="breadcrumb">
+    <li><a href="/pp/">Home</a></li>
+
+    <li><a href="/pp/topics/t012/">Plotting</a></li>
+    <li class="active">Venn diagram, 2 circles</li>
+</ol>
+
+<div class="codehilite"><pre>
+</pre></div>
+
+
+<p>Install the package <em>matplotlib-venn</em>:</p>
+<p><code>easy_install matplotlib-venn</code> or <code>pip install matplotlib-venn</code>.</p>
+<p>More information: <a href="https://pypi.python.org/pypi/matplotlib-venn">https://pypi.python.org/pypi/matplotlib-venn</a></p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib_venn</span> <span class="kn">import</span> <span class="n">venn2</span><span class="p">,</span> <span class="n">venn2_circles</span>
+
+<span class="c"># Subset sizes</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="mi">2</span><span class="p">,</span>  <span class="c"># Ab</span>
+    <span class="mi">3</span><span class="p">,</span>  <span class="c"># aB</span>
+    <span class="mi">1</span><span class="p">,</span>  <span class="c"># AB</span>
+<span class="p">)</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">venn2</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">set_labels</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">))</span>
+
+<span class="c"># Subset labels</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_label_by_id</span><span class="p">(</span><span class="s">&#39;10&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s">&#39;A but not B&#39;</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_label_by_id</span><span class="p">(</span><span class="s">&#39;01&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s">&#39;B but not A&#39;</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_label_by_id</span><span class="p">(</span><span class="s">&#39;11&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s">&#39;A and B&#39;</span><span class="p">)</span>
+
+<span class="c"># Subset colors</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_patch_by_id</span><span class="p">(</span><span class="s">&#39;10&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_patch_by_id</span><span class="p">(</span><span class="s">&#39;01&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">&#39;#993333&#39;</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_patch_by_id</span><span class="p">(</span><span class="s">&#39;11&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c"># Subset alphas</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_patch_by_id</span><span class="p">(</span><span class="s">&#39;10&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_patch_by_id</span><span class="p">(</span><span class="s">&#39;01&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">get_patch_by_id</span><span class="p">(</span><span class="s">&#39;11&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c"># Border styles</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">venn2_circles</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;solid&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ls</span><span class="p">(</span><span class="s">&#39;dashed&#39;</span><span class="p">)</span>  <span class="c"># Line style</span>
+<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_lw</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>       <span class="c"># Line width</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="Plot" src="/assets/img/pp/patterns/p0144_1.png" title="output" /></p>
+<p><br />
+<small>Tags: <a href="/pp/tags/plotting/">plotting</a>, <a href="/pp/tags/matplotlib/">matplotlib</a>, <a href="/pp/tags/venn/">venn</a></small></p>
+<p><br /></p>
+<h4>Related Patterns</h4>
+<p><ul class="toc toplevel">
+<li class="toc"><span class="path">Plotting /</span> <a href="/pp/patterns/p0070/">Save plot to PDF file</a><li class="toc"><span class="path">Plotting /</span> <a href="/pp/patterns/p0142/">Line style</a><li class="toc"><span class="path">Plotting /</span> <a href="/pp/patterns/p0145/">Venn diagram, 3 circles</a><li class="toc"><span class="path">Plotting /</span> <a href="/pp/patterns/p0143/">Line color</a>
+</ul></p>
+<br />
+<small>Found an error? <a href="mailto:pp@matthiaseisen.com">Please let me know</a>.</small>
+<br />
+
+                <div class="footer">
+                    <div class="footer-block">
+                        <strong>Follow Python Patterns</strong><br />
+                        <ul class="list-unstyled">
+                            <li><a href="/pp/newsletter/">Email</a></li>
+                            <li><a href="https://twitter.com/pythonpatterns" target="_blank">Twitter</a></li>
+                            <li><a href="https://github.com/pythonpatterns" target="_blank">GitHub</a></li>
+                            <li><a href="https://plus.google.com/118332190498743014912/" target="_blank">Google+</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-block">
+                        <strong>More</strong><br />
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:pp@matthiaseisen.com">Contact me</a></li>
+                            <li>&nbsp;</li>
+                            <li>&nbsp;</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script> 
+
+    </body>
+</html>
