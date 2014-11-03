@@ -64,6 +64,14 @@ Utilities for analyzing bowling scores (Python).
 
     :Source: https://github.com/matthiaseisen/bowlingstats
 
+radix
+-----
+
+Convert numbers to different bases.
+
+    :Live: http://matthiaseisen.com/radix/
+    :Source: https://github.com/matthiaseisen/radix
+
 Contact
 =======
 
