@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content=""/>
+      <meta name="keywords" content="['Python']"/>
+      <meta name="author" content="Matthias Eisen">
+      <title>
+Creating Bingo Cards with Python and ReportLab | bingo
+</title>
+
+      <!-- Bootstrap -->
+      <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/assets/css/custom.css" rel="stylesheet">
+      
+<link href="/assets/css/pygments/pastie.css" rel="stylesheet">
+
+      <script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-19171136-1', 'auto');
+        ga('send', 'pageview');
+      </script>  
+        
+<script type="text/javascript">
+    window._tpm = window._tpm || [];
+    window._tpm['paywallID'] = '37083226';
+    window._tpm['trackPageview'] = true;
+</script>
+<script type="text/javascript" src="//code.tinypass.com/tpl/d1/tpm.js"></script>
+
+      <link rel="shortcut icon" href="/favicon.ico">
+
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+  </head>
+    <body>
+        <div class="container">
+            <div class="page">
+                <h1 class="title">Matthias Eisen</h1>
+                
+<p></p><a href="https://twitter.com/matthiaseisen" class="twitter-follow-button" data-show-count="false">Follow @matthiaseisen</a></p>
+
+                <a name="top"></a>
+                <ul class="list-inline toc">
+                    <li class="toc first"><a href="/#articles">Articles</a></li>
+                    <li class="toc"><a href="/#ebook">eBook</a></li>
+                    <li class="toc"><a href="/#oss">Open Source</a></li>
+                    <li class="toc"><a href="/#pp">Python Patterns</a></li>
+                    <li class="toc"><a href="/#newsletter">Newsletter</a></li>
+                    <li class="toc"><a href="/#contact">Contact</a></li>
+                </ul>
+                
+<h1 class="title article">Creating Bingo Cards with Python and ReportLab</h1>
+<p><br />
+<img alt="Bingo card example" src="/assets/img/pp/articles/1000-bingo-cards_250.png" /><br />
+<br />
+Imagine the following scenario:</p>
+<p>You are about to host a gathering of some sort and for whatever reason you can't come up with better entertainment than to have your guests play bingo.
+Being the Python hacking, bingo playing weirdo that you are, you'll clearly have create the bingo cards yourself.</p>
+<p>So you set out to write a program creating an arbitrary number of bingo cards neatly contained inside a single PDF file.</p>
+<p>Where there are random numbers, the <code>random</code> module can't be far:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">random</span>
+</pre></div>
+
+
+<p>For PDF creation we will use the frightingly powerful <a href="/pp/topics/t019/">ReportLab</a> library. If you haven't already installed it you can do so using pip (<code>pip install reportlab</code>).</p>
+<p>We will only need a few of ReportLab's many (many) components:</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseDocTemplate</span><span class="p">,</span>
+    <span class="n">PageTemplate</span><span class="p">,</span>
+    <span class="n">Frame</span><span class="p">,</span>
+    <span class="n">Table</span><span class="p">,</span>
+    <span class="n">TableStyle</span><span class="p">,</span>
+    <span class="n">PageBreak</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib.colors</span> <span class="kn">import</span> <span class="n">lightgrey</span><span class="p">,</span> <span class="n">black</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib.units</span> <span class="kn">import</span> <span class="n">cm</span>
+</pre></div>
+
+
+<p>First, let's create the random numbers needed to fill up the columns of a <a href="http://en.wikipedia.org/wiki/Bingo_%28U.S.%29#Bingo_cards">bingo card</a>. This will be achieved by the function <code>list_of_columns</code> and involves a number of steps:</p>
+<ol>
+<li>We split the list of available numbers (1 through 75, typically) into sublists from which the columns of our bingo cards will be fed. The length of each slice is the total number of numbers (75) divided by the number of columns (5). Since we want all slices to be of the same length, we perform a floor division.</li>
+<li>From each slice we pick a random sample of <em>n</em> numbers where <em>n</em> is the number of rows (5).</li>
+<li>Lastly, we sort every sample so the numbers of each column will appear on the card in ascending order.</li>
+</ol>
+<p>Weave those steps together into a <a href="http://matthiaseisen.com/pp/topics/t003/">list comprehension</a> and you get:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">list_of_columns</span><span class="p">(</span>
+    <span class="n">numbers</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">76</span><span class="p">),</span>
+    <span class="n">num_of_columns</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">num_of_rows</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">):</span>
+    <span class="n">slice_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_of_columns</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+                <span class="n">numbers</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">slice_length</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">slice_length</span><span class="p">],</span>
+                <span class="n">num_of_rows</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_of_columns</span><span class="p">)</span>
+    <span class="p">]</span>
+</pre></div>
+
+
+<p>Isn't it beautiful? The function <code>list_of_columns</code> gives us all the numbers for a bingo card, neatly arranged in a list of columns.</p>
+<p>Unfortunately this still isn't exactly what we need: To be able to later fill them into a table, we will need the numbers to be arranged by rows. How to we go about that?</p>
+<p>Let's interpret our list of columns as a matrix. Then the list of rows is the <a href="http://en.wikipedia.org/wiki/Transpose">transpose</a> of that matrix.</p>
+<p>So, next we define a function <code>list_of_rows</code> that takes as its only argument a matrix (the list of columns) and returns its transpose:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">list_of_rows</span><span class="p">(</span><span class="n">list_of_columns</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">list_of_columns</span><span class="p">)]</span>
+</pre></div>
+
+
+<p>Well, that wasn't too bad...</p>
+<p>Later on, we will want a free space to appear in the center of the card. So next, we write a function <code>insert_free_spaces</code> which takes the following arguments:</p>
+<ul>
+<li><code>numbers</code> (a matrix i.e. a list of lists)</li>
+<li><code>coords</code> (a list of 2-tuples)</li>
+</ul>
+<p>The function's return value is a new matrix where the numbers at all given coordinates have been replaced with <code>None</code>.</p>
+<p>If the second argument is omitted <code>insert_free_spaces</code> will replace the third number of the third row, which translates to the coordinates <code>(2, 2)</code>.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">insert_free_spaces</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="n">n</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">coords</span> <span class="k">else</span> <span class="bp">None</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span>
+    <span class="p">]</span>
+</pre></div>
+
+
+<p>The next function <code>prepend_title_row</code> is quite simple. It receives a matrix and returns a new one where a row of characters spelling 'BINGO' has been prepended. This will be used to add title rows to our bingo cards.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">prepend_title_row</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;I&#39;</span><span class="p">,</span> <span class="s">&#39;N&#39;</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">,</span> <span class="s">&#39;O&#39;</span><span class="p">]]</span> <span class="o">+</span> <span class="n">numbers</span>
+</pre></div>
+
+
+<p>Phew! Now let's put it all together with the help of a new function called <code>card_data</code>.</p>
+<p>It doesn't take any arguments and returns a list of lists (rows) containing all the data we need to create a bingo card.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">card_data</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">prepend_title_row</span><span class="p">(</span>
+        <span class="n">insert_free_spaces</span><span class="p">(</span>
+            <span class="n">list_of_rows</span><span class="p">(</span>
+                <span class="n">list_of_columns</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+
+
+<p>It's time to create the PDF document! Every page contains what is essentially a nicely styled table. Let's do the styling first:</p>
+<ul>
+<li>We set the font size for all cells to a generous 28 points.</li>
+<li><a href="http://en.wikipedia.org/wiki/Leading">Leading</a> equals the font size which is unusual but will help with vertical alignment.</li>
+<li>For the cells of the title row we use the bold version of the <em>Helvetica</em> font.</li>
+<li>We add a thin black inner grid and slighty thicker lines to frame the table.</li>
+<li>The title row also receives a more visible border.</li>
+<li>All cell content should be centered horizontally and vertically.</li>
+<li>Finally, let's change the background color of the free space, as well as the title row, to a light gray.</li>
+</ul>
+<p>All of these rules are stored in a <code>TableStyle</code> and will later be requested by calling the function <code>stylesheet</code> which returns a dictionary of styles. Well, in this case its just <em>one</em> style...</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">stylesheet</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s">&#39;bingo&#39;</span><span class="p">:</span> <span class="n">TableStyle</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">(</span><span class="s">&#39;FONTSIZE&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">28</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;LEADING&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">28</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;FONTNAME&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s">&#39;Helvetica-Bold&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;INNERGRID&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">black</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;BOX&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">black</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;BOX&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">black</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;ALIGN&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#39;CENTER&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;VALIGN&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#39;MIDDLE&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;BACKGROUND&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">lightgrey</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;BACKGROUND&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">lightgrey</span><span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>Next we create the pages of the document. Every page contains a table which, in turn, contains the data created by <code>card_data</code>.</p>
+<p>Since we want exactly one table per page we need to insert a page break after each table. This is achieved by zipping the list of tables with an equally long list of page breaks.</p>
+<p>The function <code>pages</code> takes as its arguments the number of pages that are to be created and a stylesheet like the one we've just built. The return value is a list of pages.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">pages</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">,</span> <span class="n">stylesheet</span><span class="p">):</span>
+    <span class="n">pages</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">Table</span><span class="p">(</span>
+                <span class="n">card_data</span><span class="p">(),</span>
+                <span class="mi">5</span> <span class="o">*</span> <span class="p">[</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">cm</span><span class="p">],</span>  <span class="c"># column widths</span>
+                <span class="mi">6</span> <span class="o">*</span> <span class="p">[</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">cm</span><span class="p">],</span>  <span class="c"># row heights</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">stylesheet</span><span class="p">[</span><span class="s">&#39;bingo&#39;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="p">[</span>
+            <span class="n">PageBreak</span><span class="p">()</span>
+        <span class="p">]</span> <span class="o">*</span> <span class="n">number_of_pages</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pages</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">p</span><span class="p">]</span>
+</pre></div>
+
+
+<p>The last function is <code>build_pdf</code> which does what its name implies - it builds the PDF document and writes it to the file specified in the first argument.</p>
+<p>As a second argument <code>build_pdf</code> expects a list of pages as created by the function <code>pages</code>.</p>
+<p>The body of <code>build_pdf</code> contains mostly boilerplate which you will find useful for most ReportLab projects.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">build_pdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">pages</span><span class="p">):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">BaseDocTemplate</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">addPageTemplates</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">PageTemplate</span><span class="p">(</span>
+                <span class="n">frames</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">Frame</span><span class="p">(</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">leftMargin</span><span class="p">,</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">bottomMargin</span><span class="p">,</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+                        <span class="nb">id</span><span class="o">=</span><span class="bp">None</span>
+                    <span class="p">),</span>
+                <span class="p">]</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">pages</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And that's it! The only thing left to do is to actually call <code>build_pdf</code> and produce the desired number of bingo cards &#8212; 1000 in this example.</p>
+<div class="codehilite"><pre><span class="n">build_pdf</span><span class="p">(</span><span class="s">&#39;1000-bingo-cards.pdf&#39;</span><span class="p">,</span> <span class="n">pages</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">stylesheet</span><span class="p">()))</span>
+</pre></div>
+
+
+<p>What's next? A few suggestions:</p>
+<ul>
+<li>Download an example of the <a href="/assets/pdf/articles/bingo.pdf">resulting PDF</a> [1,0 MB]</li>
+<li>Get the <a href="https://gist.github.com/matthiaseisen/2af0d71870427c6bdfd6">complete source code</a>.</li>
+<li>Improve or extend the script and <a href="mailto:me@matthiaseisen.com">let me know</a> what you've come up with.</li>
+<li>Subscribe to the <a href="/#newsletter">Newsletter</a>.</li>
+<li>Learn more about ReportLab at <a href="/pp/topics/t019/">Python Patterns</a> or read the <a href="http://www.reportlab.com/software/documentation/">offical documentation</a>.</li>
+</ul>
+
+                <footer class="article">
+					&#169; 2014 by <a href="/">matthiaseisen.com</a>
+				</footer>
+            </div>
+        </div>
+        
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script> 
+
+    </body>
+</html>

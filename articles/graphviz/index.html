@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content=""/>
+      <meta name="keywords" content="['Python']"/>
+      <meta name="author" content="Matthias Eisen">
+      <title>
+Getting started with Graphviz and Python | graphviz
+</title>
+
+      <!-- Bootstrap -->
+      <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/assets/css/custom.css" rel="stylesheet">
+      
+<link href="/assets/css/pygments/pastie.css" rel="stylesheet">
+
+      <script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-19171136-1', 'auto');
+        ga('send', 'pageview');
+      </script>  
+        
+<script type="text/javascript">
+    window._tpm = window._tpm || [];
+    window._tpm['paywallID'] = '37083226';
+    window._tpm['trackPageview'] = true;
+</script>
+<script type="text/javascript" src="//code.tinypass.com/tpl/d1/tpm.js"></script>
+
+      <link rel="shortcut icon" href="/favicon.ico">
+
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+  </head>
+    <body>
+        <div class="container">
+            <div class="page">
+                <h1 class="title">Matthias Eisen</h1>
+                
+<p></p><a href="https://twitter.com/matthiaseisen" class="twitter-follow-button" data-show-count="false">Follow @matthiaseisen</a></p>
+
+                <a name="top"></a>
+                <ul class="list-inline toc">
+                    <li class="toc first"><a href="/#articles">Articles</a></li>
+                    <li class="toc"><a href="/#ebook">eBook</a></li>
+                    <li class="toc"><a href="/#oss">Open Source</a></li>
+                    <li class="toc"><a href="/#pp">Python Patterns</a></li>
+                    <li class="toc"><a href="/#newsletter">Newsletter</a></li>
+                    <li class="toc"><a href="/#contact">Contact</a></li>
+                </ul>
+                
+<h1 class="title article">Getting started with Graphviz and Python</h1>
+<p><br /></p>
+<h3>About the <code>graphviz</code> module</h3>
+<p>There are several Python modules for dealing with Graphviz. The most popular one seems to be <code>pygraphviz</code>. Unfortunately it isn't available for Python 3. So we will use the <code>graphviz</code> module instead.</p>
+<p>Installation is simple:</p>
+<div class="codehilite"><pre>pip install graphviz
+</pre></div>
+
+
+<h3>Hello Graphviz</h3>
+<p>First we need to import the graphviz module:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">graphviz</span> <span class="kn">as</span> <span class="nn">gv</span>
+</pre></div>
+
+
+<p>Now we can create the graph object <code>g1</code> and add two nodes <code>A</code> and <code>B</code> as well as an edge to connect the two.</p>
+<div class="codehilite"><pre><span class="n">g1</span> <span class="o">=</span> <span class="n">gv</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">g1</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">g1</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">)</span>
+<span class="n">g1</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Let's have a look at the the <code>dot</code> code that this will generate behind the scenes:</p>
+<div class="codehilite"><pre><span class="k">print</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="output">
+<pre>
+graph {
+    A
+    B
+        A -- B
+}
+</pre>
+</div>
+
+<p>That looks about right. Now it's time to save the graph to disk:</p>
+<div class="codehilite"><pre><span class="n">filename</span> <span class="o">=</span> <span class="n">g1</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s">&#39;img/g1&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">filename</span>
+</pre></div>
+
+
+<div class="output">
+<pre>
+img/g1.svg
+</pre>
+</div>
+
+<p>As you can see, the graphviz module takes care of appending the correct file extension.</p>
+<p>Let's have a look at the result:</p>
+<p><img alt="svg" src="/assets/img/articles/graphviz/g1.svg" /></p>
+<h3>Directed Graphs</h3>
+<p>To create a directed version of the previous graph we only need to replace the <code>Graph</code> object with a <code>Digraph</code>.</p>
+<div class="codehilite"><pre><span class="n">g2</span> <span class="o">=</span> <span class="n">gv</span><span class="o">.</span><span class="n">Digraph</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">)</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">)</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&#39;img/g2&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="svg" src="/assets/img/articles/graphviz/g2.svg" /></p>
+<h3>A more concise approach</h3>
+<p>The above approach is fine for small graphs but for larger ones we should create a few helper functions.
+Since we will stick to SVG as our output format there is no need to explicity specifiy it for every graph.</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">functools</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">gv</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">digraph</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">gv</span><span class="o">.</span><span class="n">Digraph</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;svg&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now creating a new graph is as easy as calling <code>graph()</code></p>
+<div class="codehilite"><pre><span class="n">g3</span> <span class="o">=</span> <span class="n">graph</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Next, we would like to specify the nodes and edges as simple data structures instead typing loads of method calls.</p>
+<div class="codehilite"><pre><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="p">{})]</span>
+</pre></div>
+
+
+<p>Every node is represented by either a string or a tuple. In the latter case the second element of the tuple holds all attributes of that node as we will see later.
+The represenation of edges is quite similar:</p>
+<div class="codehilite"><pre><span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">),</span>
+    <span class="p">((</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">),</span> <span class="p">{}),</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p>To actually create nodes and edges from these data structures we implement the functions <code>add_nodes</code> and <code>add_edges</code>. Note that both functions return the updated graph which will come in handy in just a second.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">add_nodes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">graph</span>
+
+<span class="k">def</span> <span class="nf">add_edges</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">graph</span>
+</pre></div>
+
+
+<p>Now we can create graphs in a much more concise way:</p>
+<div class="codehilite"><pre><span class="n">add_edges</span><span class="p">(</span>
+    <span class="n">add_nodes</span><span class="p">(</span><span class="n">digraph</span><span class="p">(),</span> <span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">]),</span>
+    <span class="p">[(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">)]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&#39;img/g4&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="svg" src="/assets/img/articles/graphviz/g4.svg" /></p>
+<h3>Labels</h3>
+<p>Labeling nodes and edges is as easy as adding an entry to their dictionaries of attributes.</p>
+<div class="codehilite"><pre><span class="n">add_edges</span><span class="p">(</span>
+    <span class="n">add_nodes</span><span class="p">(</span><span class="n">digraph</span><span class="p">(),</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Node A&#39;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Node B&#39;</span><span class="p">}),</span>
+        <span class="s">&#39;C&#39;</span>
+    <span class="p">]),</span>
+    <span class="p">[</span>
+        <span class="p">((</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Edge 1&#39;</span><span class="p">}),</span>
+        <span class="p">((</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Edge 2&#39;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&#39;img/g5&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="svg" src="/assets/img/articles/graphviz/g5.svg" /></p>
+<h3>Styling</h3>
+<p>Graphviz let's you style graphs extensively by setting specific attributes. The following example will showcase a few of these attributes. </p>
+<p>For a complete list of attributes please refer to <a href="http://www.graphviz.org/doc/info/attrs.html">http://www.graphviz.org/doc/info/attrs.html</a>.</p>
+<p>First, let's create an unstyled graph:</p>
+<div class="codehilite"><pre><span class="n">g6</span> <span class="o">=</span> <span class="n">add_edges</span><span class="p">(</span>
+    <span class="n">add_nodes</span><span class="p">(</span><span class="n">digraph</span><span class="p">(),</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Node A&#39;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Node B&#39;</span><span class="p">}),</span>
+        <span class="s">&#39;C&#39;</span>
+    <span class="p">]),</span>
+    <span class="p">[</span>
+        <span class="p">((</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Edge 1&#39;</span><span class="p">}),</span>
+        <span class="p">((</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Edge 2&#39;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>We will use a simple dictionary to specifiy the attributes that we want to change:</p>
+<div class="codehilite"><pre><span class="n">styles</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;graph&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;A Fancy Graph&#39;</span><span class="p">,</span>
+        <span class="s">&#39;fontsize&#39;</span><span class="p">:</span> <span class="s">&#39;16&#39;</span><span class="p">,</span>
+        <span class="s">&#39;fontcolor&#39;</span><span class="p">:</span> <span class="s">&#39;white&#39;</span><span class="p">,</span>
+        <span class="s">&#39;bgcolor&#39;</span><span class="p">:</span> <span class="s">&#39;#333333&#39;</span><span class="p">,</span>
+        <span class="s">&#39;rankdir&#39;</span><span class="p">:</span> <span class="s">&#39;BT&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;fontname&#39;</span><span class="p">:</span> <span class="s">&#39;Helvetica&#39;</span><span class="p">,</span>
+        <span class="s">&#39;shape&#39;</span><span class="p">:</span> <span class="s">&#39;hexagon&#39;</span><span class="p">,</span>
+        <span class="s">&#39;fontcolor&#39;</span><span class="p">:</span> <span class="s">&#39;white&#39;</span><span class="p">,</span>
+        <span class="s">&#39;color&#39;</span><span class="p">:</span> <span class="s">&#39;white&#39;</span><span class="p">,</span>
+        <span class="s">&#39;style&#39;</span><span class="p">:</span> <span class="s">&#39;filled&#39;</span><span class="p">,</span>
+        <span class="s">&#39;fillcolor&#39;</span><span class="p">:</span> <span class="s">&#39;#006699&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">&#39;edges&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;style&#39;</span><span class="p">:</span> <span class="s">&#39;dashed&#39;</span><span class="p">,</span>
+        <span class="s">&#39;color&#39;</span><span class="p">:</span> <span class="s">&#39;white&#39;</span><span class="p">,</span>
+        <span class="s">&#39;arrowhead&#39;</span><span class="p">:</span> <span class="s">&#39;open&#39;</span><span class="p">,</span>
+        <span class="s">&#39;fontname&#39;</span><span class="p">:</span> <span class="s">&#39;Courier&#39;</span><span class="p">,</span>
+        <span class="s">&#39;fontsize&#39;</span><span class="p">:</span> <span class="s">&#39;12&#39;</span><span class="p">,</span>
+        <span class="s">&#39;fontcolor&#39;</span><span class="p">:</span> <span class="s">&#39;white&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Now we need another helper function <code>apply_styles</code> to actually apply those attributes to the graph:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">apply_styles</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">styles</span><span class="p">):</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">graph_attr</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">(</span><span class="s">&#39;graph&#39;</span> <span class="ow">in</span> <span class="n">styles</span> <span class="ow">and</span> <span class="n">styles</span><span class="p">[</span><span class="s">&#39;graph&#39;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="p">)</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">node_attr</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">(</span><span class="s">&#39;nodes&#39;</span> <span class="ow">in</span> <span class="n">styles</span> <span class="ow">and</span> <span class="n">styles</span><span class="p">[</span><span class="s">&#39;nodes&#39;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="p">)</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">edge_attr</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">(</span><span class="s">&#39;edges&#39;</span> <span class="ow">in</span> <span class="n">styles</span> <span class="ow">and</span> <span class="n">styles</span><span class="p">[</span><span class="s">&#39;edges&#39;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">graph</span>
+</pre></div>
+
+
+<p>Let's try it out!</p>
+<div class="codehilite"><pre><span class="n">g6</span> <span class="o">=</span> <span class="n">apply_styles</span><span class="p">(</span><span class="n">g6</span><span class="p">,</span> <span class="n">styles</span><span class="p">)</span>
+<span class="n">g6</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&#39;img/g6&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="svg" src="/assets/img/articles/graphviz/g6.svg" /></p>
+<h3>Subgraphs</h3>
+<p>Lastly, we will have a look a subgraphs. First, let's create two seperate graphs <code>g7</code> and <code>g8</code>, each with their own styling.</p>
+<div class="codehilite"><pre><span class="n">g7</span> <span class="o">=</span> <span class="n">add_edges</span><span class="p">(</span>
+    <span class="n">add_nodes</span><span class="p">(</span><span class="n">digraph</span><span class="p">(),</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Node A&#39;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Node B&#39;</span><span class="p">}),</span>
+        <span class="s">&#39;C&#39;</span>
+    <span class="p">]),</span>
+    <span class="p">[</span>
+        <span class="p">((</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Edge 1&#39;</span><span class="p">}),</span>
+        <span class="p">((</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Edge 2&#39;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">g8</span> <span class="o">=</span> <span class="n">apply_styles</span><span class="p">(</span>
+    <span class="n">add_edges</span><span class="p">(</span>
+        <span class="n">add_nodes</span><span class="p">(</span><span class="n">digraph</span><span class="p">(),</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Node D&#39;</span><span class="p">}),</span>
+            <span class="p">(</span><span class="s">&#39;E&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Node E&#39;</span><span class="p">}),</span>
+            <span class="s">&#39;F&#39;</span>
+        <span class="p">]),</span>
+        <span class="p">[</span>
+            <span class="p">((</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="s">&#39;E&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Edge 3&#39;</span><span class="p">}),</span>
+            <span class="p">((</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="s">&#39;F&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="s">&#39;Edge 4&#39;</span><span class="p">}),</span>
+            <span class="p">(</span><span class="s">&#39;E&#39;</span><span class="p">,</span> <span class="s">&#39;F&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+    <span class="p">{</span>
+        <span class="s">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;shape&#39;</span><span class="p">:</span> <span class="s">&#39;square&#39;</span><span class="p">,</span>
+            <span class="s">&#39;style&#39;</span><span class="p">:</span> <span class="s">&#39;filled&#39;</span><span class="p">,</span>
+            <span class="s">&#39;fillcolor&#39;</span><span class="p">:</span> <span class="s">&#39;#cccccc&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Now we combine the two graphs by making <code>g8</code> a subgraph of <code>g7</code> and adding an extra edge to connect the two:</p>
+<div class="codehilite"><pre><span class="n">g7</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">g8</span><span class="p">)</span>
+<span class="n">g7</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;E&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s">&#39;2&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Let's have a look at the result:</p>
+<div class="codehilite"><pre><span class="n">g7</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">&#39;img/g7&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="svg" src="/assets/img/articles/graphviz/g7.svg" /></p>
+<h3>What's next?</h3>
+<ul>
+    <li>Head over to GitHub to get the complete <a href="https://gist.github.com/matthiaseisen/3278cedcd53afe62c3f3" target="_blank">source code</a>.</li>
+    <li>Improve or extend the script and <a href="mailto:me@matthiaseisen.com">let me know</a> what you've come up with.</li>
+    <li>Subscribe to the <a href="/#newsletter">Newsletter</a>.</li>
+    <li>Learn more about Graphviz and the Dot language: <a href="http://www.graphviz.org/pdf/dotguide.pdf" target="_blank">http://www.graphviz.org/pdf/dotguide.pdf</a>.</li>
+</ul>
+
+                <footer class="article">
+					&#169; 2014 by <a href="/">matthiaseisen.com</a>
+				</footer>
+            </div>
+        </div>
+        
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script> 
+
+    </body>
+</html>
