@@ -51,3 +51,18 @@ li.toc {
 li.toc.first {
 	border-style: none;
 }
+
+div.output {
+    border-left: solid 5px #ccc;
+}
+
+div.signup-form { 
+    padding: 1em;
+    background-color: #624ea7; 
+    text-align: center;
+}
+
+label {
+    font-weight: normal;
+    color: #fff;
+}
