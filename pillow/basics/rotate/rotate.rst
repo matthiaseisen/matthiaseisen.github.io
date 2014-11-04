@@ -66,8 +66,8 @@ Clockwise Rotation
 
     Rotated by 45 degrees (clockwise)
 
-Disable cropping of output image
---------------------------------
+Disable cropping of the output image
+------------------------------------
 
 .. include:: rotate.py
     :code: python
