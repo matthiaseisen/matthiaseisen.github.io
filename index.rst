@@ -24,10 +24,12 @@ A directory of reusable Python solutions.
 
 `http://matthiaseisen.com/pp/ <http://matthiaseisen.com/pp/>`_
 
-The Web Scraper's Handbook
---------------------------
+Pillow by Example
+-----------------
 
-coming soon...
+Plenty of Pillow (formerly PIL) examples.
+
+`http://matthiaseisen.com/pillow/ <http://matthiaseisen.com/pillow/>`_
 
 Open Source
 ===========

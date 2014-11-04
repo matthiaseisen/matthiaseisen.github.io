@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Pillow by Example</title>
+<link rel="stylesheet" href="/docutils_basic.css" type="text/css" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19171136-1', 'auto');
+    ga('send', 'pageview');
+</script> 
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="/">Home</a> &gt; <a class="reference external" href="/pillow/">Pillow by Example</a> &gt; <a class="reference external" href="/pillow/basics/">Basics</a> &gt; <a class="reference external" href="/pillow/basics/rotate/">Rotate</a>
+<hr class="header"/>
+</div>
+<div class="document" id="id1">
+<h1 class="title">Pillow by Example</h1>
+<h2 class="subtitle" id="rotating-images">Rotating Images</h2>
+
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#preparations" id="id2">1&nbsp;&nbsp;&nbsp;Preparations</a></li>
+<li><a class="reference internal" href="#counterclockwise-rotation" id="id3">2&nbsp;&nbsp;&nbsp;Counterclockwise Rotation</a></li>
+<li><a class="reference internal" href="#clockwise-rotation" id="id4">3&nbsp;&nbsp;&nbsp;Clockwise Rotation</a></li>
+<li><a class="reference internal" href="#disable-cropping-of-output-image" id="id5">4&nbsp;&nbsp;&nbsp;Disable cropping of output image</a></li>
+<li><a class="reference internal" href="#apply-a-resampling-filter" id="id6">5&nbsp;&nbsp;&nbsp;Apply a resampling filter</a></li>
+</ul>
+</div>
+<div class="section" id="preparations">
+<h1><a class="toc-backref" href="#contents">1&nbsp;&nbsp;&nbsp;Preparations</a></h1>
+<p>Import Pillow:</p>
+<pre class="code python literal-block">
+<span class="keyword namespace">from</span> <span class="name namespace">PIL</span> <span class="keyword namespace">import</span> <span class="name">Image</span>
+</pre>
+<p>Load the original image:</p>
+<pre class="code python literal-block">
+<span class="name">img</span> <span class="operator">=</span> <span class="name">Image</span><span class="operator">.</span><span class="name">open</span><span class="punctuation">(</span><span class="literal string">&quot;flowers.jpg&quot;</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="flowers.jpg" src="flowers.jpg" />
+<p class="caption">The original image</p>
+</div>
+</div>
+<div class="section" id="counterclockwise-rotation">
+<h1><a class="toc-backref" href="#contents">2&nbsp;&nbsp;&nbsp;Counterclockwise Rotation</a></h1>
+<pre class="code python literal-block">
+<span class="name">img2</span> <span class="operator">=</span> <span class="name">img</span><span class="operator">.</span><span class="name">rotate</span><span class="punctuation">(</span><span class="literal number integer">45</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="img2.jpg" src="img2.jpg" />
+<p class="caption">Rotated by 45 degrees</p>
+</div>
+<pre class="code python literal-block">
+<span class="name">img3</span> <span class="operator">=</span> <span class="name">img</span><span class="operator">.</span><span class="name">rotate</span><span class="punctuation">(</span><span class="literal number integer">90</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="img3.jpg" src="img3.jpg" />
+<p class="caption">Rotated by 90 degrees</p>
+</div>
+</div>
+<div class="section" id="clockwise-rotation">
+<h1><a class="toc-backref" href="#contents">3&nbsp;&nbsp;&nbsp;Clockwise Rotation</a></h1>
+<pre class="code python literal-block">
+<span class="name">img4</span> <span class="operator">=</span> <span class="name">img</span><span class="operator">.</span><span class="name">rotate</span><span class="punctuation">(</span><span class="operator">-</span><span class="literal number integer">45</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="img4.jpg" src="img4.jpg" />
+<p class="caption">Rotated by 45 degrees (clockwise)</p>
+</div>
+</div>
+<div class="section" id="disable-cropping-of-output-image">
+<h1><a class="toc-backref" href="#contents">4&nbsp;&nbsp;&nbsp;Disable cropping of output image</a></h1>
+<pre class="code python literal-block">
+<span class="name">img5</span> <span class="operator">=</span> <span class="name">img</span><span class="operator">.</span><span class="name">rotate</span><span class="punctuation">(</span><span class="literal number integer">45</span><span class="punctuation">,</span> <span class="name">expand</span><span class="operator">=</span><span class="name builtin pseudo">True</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="img5.jpg" src="img5.jpg" />
+<p class="caption">Uncropped version of rotated image</p>
+</div>
+</div>
+<div class="section" id="apply-a-resampling-filter">
+<h1><a class="toc-backref" href="#contents">5&nbsp;&nbsp;&nbsp;Apply a resampling filter</a></h1>
+<pre class="code python literal-block">
+<span class="name">img6</span> <span class="operator">=</span> <span class="name">img</span><span class="operator">.</span><span class="name">rotate</span><span class="punctuation">(</span><span class="literal number integer">45</span><span class="punctuation">,</span> <span class="name">resample</span><span class="operator">=</span><span class="name">Image</span><span class="operator">.</span><span class="name">NEAREST</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="img6.jpg" src="img6.jpg" />
+<p class="caption">Use nearest neighbor (default)</p>
+</div>
+<pre class="code python literal-block">
+<span class="name">img7</span> <span class="operator">=</span> <span class="name">img</span><span class="operator">.</span><span class="name">rotate</span><span class="punctuation">(</span><span class="literal number integer">45</span><span class="punctuation">,</span> <span class="name">resample</span><span class="operator">=</span><span class="name">Image</span><span class="operator">.</span><span class="name">BILINEAR</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="img7.jpg" src="img7.jpg" />
+<p class="caption">Use linear interpolation</p>
+</div>
+<pre class="code python literal-block">
+<span class="name">img8</span> <span class="operator">=</span> <span class="name">img</span><span class="operator">.</span><span class="name">rotate</span><span class="punctuation">(</span><span class="literal number integer">45</span><span class="punctuation">,</span> <span class="name">resample</span><span class="operator">=</span><span class="name">Image</span><span class="operator">.</span><span class="name">BICUBIC</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="img8.jpg" src="img8.jpg" />
+<p class="caption">Use cubic spline interpolation</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+Copyright 2014 <a class="reference external" href="/">Matthias Eisen</a>
+</div>
+</body>
+</html>
