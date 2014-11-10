@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Matplotlib by Example</title>
+<link rel="stylesheet" href="/docutils_basic.css" type="text/css" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19171136-1', 'auto');
+    ga('send', 'pageview');
+</script> 
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="/">Home</a> &gt; <a class="reference external" href="/matplotlib/">Matplotlib by Example</a> &gt; <a class="reference external" href="/matplotlib/shapes/">Shapes</a> &gt; <a class="reference external" href="/matplotlib/shapes/rectangle/">Rectangle</a>
+<hr class="header"/>
+</div>
+<div class="document" id="id1">
+<h1 class="title">Matplotlib by Example</h1>
+<h2 class="subtitle" id="id2">Rectangle</h2>
+
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#hello-rectangle" id="id3">1&nbsp;&nbsp;&nbsp;Hello Rectangle</a></li>
+<li><a class="reference internal" href="#remove-background" id="id4">2&nbsp;&nbsp;&nbsp;Remove Background</a></li>
+<li><a class="reference internal" href="#background-patterns" id="id5">3&nbsp;&nbsp;&nbsp;Background Patterns</a></li>
+<li><a class="reference internal" href="#background-alpha" id="id6">4&nbsp;&nbsp;&nbsp;Background Alpha</a></li>
+<li><a class="reference internal" href="#background-color" id="id7">5&nbsp;&nbsp;&nbsp;Background Color</a></li>
+<li><a class="reference internal" href="#border-color" id="id8">6&nbsp;&nbsp;&nbsp;Border Color</a></li>
+<li><a class="reference internal" href="#border-width" id="id9">7&nbsp;&nbsp;&nbsp;Border Width</a></li>
+<li><a class="reference internal" href="#border-style" id="id10">8&nbsp;&nbsp;&nbsp;Border Style</a></li>
+</ul>
+</div>
+<div class="section" id="hello-rectangle">
+<h1><a class="toc-backref" href="#contents">1&nbsp;&nbsp;&nbsp;Hello Rectangle</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig1</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax1</span> <span class="operator">=</span> <span class="name">fig1</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax1</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.1</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span>   <span class="comment"># (x,y)</span>
+        <span class="literal number float">0.5</span><span class="punctuation">,</span>          <span class="comment"># width</span>
+        <span class="literal number float">0.5</span><span class="punctuation">,</span>          <span class="comment"># height</span>
+    <span class="punctuation">)</span>
+<span class="punctuation">)</span>
+<span class="name">fig1</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect1.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect1.png" src="rect1.png" />
+</div>
+</div>
+<div class="section" id="remove-background">
+<h1><a class="toc-backref" href="#contents">2&nbsp;&nbsp;&nbsp;Remove Background</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig2</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax2</span> <span class="operator">=</span> <span class="name">fig2</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax2</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.1</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span>
+        <span class="literal number float">0.5</span><span class="punctuation">,</span>
+        <span class="literal number float">0.5</span><span class="punctuation">,</span>
+        <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span>      <span class="comment"># remove background</span>
+    <span class="punctuation">)</span>
+<span class="punctuation">)</span>
+<span class="name">fig2</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect2.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect2.png" src="rect2.png" />
+</div>
+</div>
+<div class="section" id="background-patterns">
+<h1><a class="toc-backref" href="#contents">3&nbsp;&nbsp;&nbsp;Background Patterns</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig3</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax3</span> <span class="operator">=</span> <span class="name">fig3</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.1</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.3</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">hatch</span><span class="operator">=</span><span class="literal string">'/'</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.5</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.3</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">hatch</span><span class="operator">=</span><span class="literal string">'</span><span class="literal string escape">\\</span><span class="literal string">'</span><span class="punctuation">,</span>
+        <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax3</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig3</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect3.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect3.png" src="rect3.png" />
+</div>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">patterns</span> <span class="operator">=</span> <span class="punctuation">[</span><span class="literal string">'-'</span><span class="punctuation">,</span> <span class="literal string">'+'</span><span class="punctuation">,</span> <span class="literal string">'x'</span><span class="punctuation">,</span> <span class="literal string">'o'</span><span class="punctuation">,</span> <span class="literal string">'O'</span><span class="punctuation">,</span> <span class="literal string">'.'</span><span class="punctuation">,</span> <span class="literal string">'*'</span><span class="punctuation">]</span>  <span class="comment"># more patterns</span>
+<span class="name">fig4</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax4</span> <span class="operator">=</span> <span class="name">fig4</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.05</span> <span class="operator">+</span> <span class="punctuation">(</span><span class="name">i</span> <span class="operator">*</span> <span class="literal number float">0.13</span><span class="punctuation">),</span> <span class="literal number float">0.1</span><span class="punctuation">),</span>
+        <span class="literal number float">0.1</span><span class="punctuation">,</span>
+        <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">hatch</span><span class="operator">=</span><span class="name">patterns</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">],</span>
+        <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span>
+    <span class="punctuation">)</span> <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name builtin">len</span><span class="punctuation">(</span><span class="name">patterns</span><span class="punctuation">))</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax4</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig4</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect4.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect4.png" src="rect4.png" />
+</div>
+</div>
+<div class="section" id="background-alpha">
+<h1><a class="toc-backref" href="#contents">4&nbsp;&nbsp;&nbsp;Background Alpha</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig5</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax5</span> <span class="operator">=</span> <span class="name">fig5</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.03</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">alpha</span><span class="operator">=</span><span class="name builtin pseudo">None</span><span class="punctuation">,</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.26</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">alpha</span><span class="operator">=</span><span class="literal number float">1.0</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.49</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">alpha</span><span class="operator">=</span><span class="literal number float">0.6</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.72</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">alpha</span><span class="operator">=</span><span class="literal number float">0.1</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax5</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig5</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect5.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect5.png" src="rect5.png" />
+</div>
+</div>
+<div class="section" id="background-color">
+<h1><a class="toc-backref" href="#contents">5&nbsp;&nbsp;&nbsp;Background Color</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig6</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax6</span> <span class="operator">=</span> <span class="name">fig6</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.03</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">facecolor</span><span class="operator">=</span><span class="name builtin pseudo">None</span>      <span class="comment"># Default</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.26</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">facecolor</span><span class="operator">=</span><span class="literal string">&quot;none&quot;</span>     <span class="comment"># No background</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.49</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">facecolor</span><span class="operator">=</span><span class="literal string">&quot;red&quot;</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.72</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
+        <span class="name">facecolor</span><span class="operator">=</span><span class="literal string">&quot;#00ffff&quot;</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax6</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig6</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect6.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect6.png" src="rect6.png" />
+</div>
+</div>
+<div class="section" id="border-color">
+<h1><a class="toc-backref" href="#contents">6&nbsp;&nbsp;&nbsp;Border Color</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig7</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax7</span> <span class="operator">=</span> <span class="name">fig7</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.03</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">edgecolor</span><span class="operator">=</span><span class="name builtin pseudo">None</span>      <span class="comment"># Default</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.26</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">edgecolor</span><span class="operator">=</span><span class="literal string">&quot;none&quot;</span>     <span class="comment"># No border</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.49</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">edgecolor</span><span class="operator">=</span><span class="literal string">&quot;red&quot;</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.72</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">edgecolor</span><span class="operator">=</span><span class="literal string">&quot;#0000ff&quot;</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax7</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig7</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect7.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect7.png" src="rect7.png" />
+</div>
+</div>
+<div class="section" id="border-width">
+<h1><a class="toc-backref" href="#contents">7&nbsp;&nbsp;&nbsp;Border Width</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig8</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax8</span> <span class="operator">=</span> <span class="name">fig8</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.03</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linewidth</span><span class="operator">=</span><span class="name builtin pseudo">None</span>      <span class="comment"># Default</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.26</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linewidth</span><span class="operator">=</span><span class="literal number integer">0</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.49</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linewidth</span><span class="operator">=</span><span class="literal number float">0.5</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.72</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linewidth</span><span class="operator">=</span><span class="literal number integer">3</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax8</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig8</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect8.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect8.png" src="rect8.png" />
+</div>
+</div>
+<div class="section" id="border-style">
+<h1><a class="toc-backref" href="#contents">8&nbsp;&nbsp;&nbsp;Border Style</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig9</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax9</span> <span class="operator">=</span> <span class="name">fig9</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.03</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linestyle</span><span class="operator">=</span><span class="literal string">'solid'</span>   <span class="comment"># Default</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.26</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linestyle</span><span class="operator">=</span><span class="literal string">'dashed'</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.49</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linestyle</span><span class="operator">=</span><span class="literal string">'dashdot'</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Rectangle</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.72</span><span class="punctuation">,</span> <span class="literal number float">0.1</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linestyle</span><span class="operator">=</span><span class="literal string">'dotted'</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax9</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig9</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'rect9.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="rect9.png" src="rect9.png" />
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+Copyright 2014 <a class="reference external" href="/">Matthias Eisen</a>
+</div>
+</body>
+</html>
