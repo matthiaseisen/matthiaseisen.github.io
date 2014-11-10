@@ -24,6 +24,11 @@ A directory of reusable Python solutions.
 
 `http://matthiaseisen.com/pp/ <http://matthiaseisen.com/pp/>`_
 
+Matplotlib by Example
+---------------------
+
+`http://matthiaseisen.com/matplotlib/ <http://matthiaseisen.com/matplotlib/>`_
+
 Pillow by Example
 -----------------
 
@@ -58,13 +63,6 @@ A modern macro language.
     :Grammar: `html <http://matthiaseisen.com/m6/grammar/>`_ | `txt <https://github.com/matthiaseisen/m6/blob/master/grammar.bnf>`_
     :Lexer: https://github.com/matthiaseisen/m6/blob/master/m6_lexer.py
     :Parser: coming soon...
-
-bowlingstats
-------------
-
-Utilities for analyzing bowling scores (Python).
-
-    :Source: https://github.com/matthiaseisen/bowlingstats
 
 radix
 -----
