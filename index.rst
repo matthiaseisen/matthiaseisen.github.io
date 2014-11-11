@@ -27,14 +27,22 @@ A directory of reusable Python solutions.
 Matplotlib by Example
 ---------------------
 
-`http://matthiaseisen.com/matplotlib/ <http://matthiaseisen.com/matplotlib/>`_
+    :Read online: `http://matthiaseisen.com/matplotlib/ <http://matthiaseisen.com/matplotlib/>`_
+    :Source: `https://github.com/matthiaseisen/matplotlib <https://github.com/matthiaseisen/matplotlib>`_
 
-Pillow by Example
------------------
+Pillow (formerly PIL) by Example
+--------------------------------
 
-Plenty of Pillow (formerly PIL) examples.
+    :Read online: `http://matthiaseisen.com/pillow/ <http://matthiaseisen.com/pillow/>`_
+    :Source: `https://github.com/matthiaseisen/pillow <https://github.com/matthiaseisen/pillow>`_
 
-`http://matthiaseisen.com/pillow/ <http://matthiaseisen.com/pillow/>`_
+Fun with Lists
+--------------
+
+Python
+......
+
+    :Read online: `http://matthiaseisen.com/fwl/py/ <http://matthiaseisen.com/fwl/py/>`_
 
 Open Source
 ===========
