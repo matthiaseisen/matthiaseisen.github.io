@@ -5,7 +5,7 @@ Augsburg, Germany
 ^^^^^^^^^^^^^^^^^
 
 .. contents::
-    :depth: 3
+    :depth: 2
     :backlinks: top
 
 Publications
