@@ -9,5 +9,6 @@ Shapes
 - `Rectangle </matplotlib/shapes/rectangle/>`_
 - `Ellipse </matplotlib/shapes/ellipse/>`_
 - `Circle </matplotlib/shapes/circle/>`_
+- `Regular Polygon </matplotlib/shapes/reg-polygon/>`_
 
 .. footer:: Copyright 2014 `Matthias Eisen </>`__
