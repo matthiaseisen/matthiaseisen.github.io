@@ -42,7 +42,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig1</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax1</span> <span class="operator">=</span> <span class="name">fig1</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax1</span> <span class="operator">=</span> <span class="name">fig1</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="name">ax1</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.5</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span>   <span class="comment"># (x,y)</span>
@@ -63,7 +63,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig2</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax2</span> <span class="operator">=</span> <span class="name">fig2</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax2</span> <span class="operator">=</span> <span class="name">fig2</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="name">ax2</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.5</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span>
@@ -85,7 +85,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig3</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax3</span> <span class="operator">=</span> <span class="name">fig3</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax3</span> <span class="operator">=</span> <span class="name">fig3</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.3</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.3</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
@@ -109,7 +109,7 @@
 
 <span class="name">patterns</span> <span class="operator">=</span> <span class="punctuation">[</span><span class="literal string">'-'</span><span class="punctuation">,</span> <span class="literal string">'+'</span><span class="punctuation">,</span> <span class="literal string">'x'</span><span class="punctuation">,</span> <span class="literal string">'o'</span><span class="punctuation">,</span> <span class="literal string">'O'</span><span class="punctuation">,</span> <span class="literal string">'.'</span><span class="punctuation">,</span> <span class="literal string">'*'</span><span class="punctuation">]</span>  <span class="comment"># more patterns</span>
 <span class="name">fig4</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax4</span> <span class="operator">=</span> <span class="name">fig4</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax4</span> <span class="operator">=</span> <span class="name">fig4</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.1</span> <span class="operator">+</span> <span class="punctuation">(</span><span class="name">i</span> <span class="operator">*</span> <span class="literal number float">0.13</span><span class="punctuation">),</span> <span class="literal number float">0.5</span><span class="punctuation">),</span>
@@ -133,7 +133,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig5</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax5</span> <span class="operator">=</span> <span class="name">fig5</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax5</span> <span class="operator">=</span> <span class="name">fig5</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.13</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
@@ -166,7 +166,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig6</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax6</span> <span class="operator">=</span> <span class="name">fig6</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax6</span> <span class="operator">=</span> <span class="name">fig6</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.13</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span>
@@ -199,7 +199,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig7</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax7</span> <span class="operator">=</span> <span class="name">fig7</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax7</span> <span class="operator">=</span> <span class="name">fig7</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.13</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
@@ -232,7 +232,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig8</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax8</span> <span class="operator">=</span> <span class="name">fig8</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax8</span> <span class="operator">=</span> <span class="name">fig8</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.13</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
@@ -265,7 +265,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig9</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax9</span> <span class="operator">=</span> <span class="name">fig9</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax9</span> <span class="operator">=</span> <span class="name">fig9</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.13</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
@@ -298,7 +298,7 @@
 <span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
 
 <span class="name">fig10</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
-<span class="name">ax10</span> <span class="operator">=</span> <span class="name">fig10</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">)</span>
+<span class="name">ax10</span> <span class="operator">=</span> <span class="name">fig10</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
 <span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
     <span class="name">patches</span><span class="operator">.</span><span class="name">Ellipse</span><span class="punctuation">(</span>
         <span class="punctuation">(</span><span class="literal number float">0.13</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.1</span><span class="punctuation">,</span> <span class="literal number float">0.4</span><span class="punctuation">,</span>

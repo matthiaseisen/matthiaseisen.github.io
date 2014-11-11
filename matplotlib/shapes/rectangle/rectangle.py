@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 fig1 = plt.figure()
-ax1 = fig1.add_subplot(111)
+ax1 = fig1.add_subplot(111, aspect='equal')
 ax1.add_patch(
     patches.Rectangle(
         (0.1, 0.1),   # (x,y)
@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 fig2 = plt.figure()
-ax2 = fig2.add_subplot(111)
+ax2 = fig2.add_subplot(111, aspect='equal')
 ax2.add_patch(
     patches.Rectangle(
         (0.1, 0.1),
@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 fig3 = plt.figure()
-ax3 = fig3.add_subplot(111)
+ax3 = fig3.add_subplot(111, aspect='equal')
 for p in [
     patches.Rectangle(
         (0.1, 0.1), 0.3, 0.6,
@@ -58,7 +58,7 @@ import matplotlib.patches as patches
 
 patterns = ['-', '+', 'x', 'o', 'O', '.', '*']  # more patterns
 fig4 = plt.figure()
-ax4 = fig4.add_subplot(111)
+ax4 = fig4.add_subplot(111, aspect='equal')
 for p in [
     patches.Rectangle(
         (0.05 + (i * 0.13), 0.1),
@@ -77,7 +77,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 fig5 = plt.figure()
-ax5 = fig5.add_subplot(111)
+ax5 = fig5.add_subplot(111, aspect='equal')
 for p in [
     patches.Rectangle(
         (0.03, 0.1), 0.2, 0.6,
@@ -105,7 +105,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 fig6 = plt.figure()
-ax6 = fig6.add_subplot(111)
+ax6 = fig6.add_subplot(111, aspect='equal')
 for p in [
     patches.Rectangle(
         (0.03, 0.1), 0.2, 0.6,
@@ -133,7 +133,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 fig7 = plt.figure()
-ax7 = fig7.add_subplot(111)
+ax7 = fig7.add_subplot(111, aspect='equal')
 for p in [
     patches.Rectangle(
         (0.03, 0.1), 0.2, 0.6, fill=False,
@@ -161,7 +161,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 fig8 = plt.figure()
-ax8 = fig8.add_subplot(111)
+ax8 = fig8.add_subplot(111, aspect='equal')
 for p in [
     patches.Rectangle(
         (0.03, 0.1), 0.2, 0.6, fill=False,
@@ -189,7 +189,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 fig9 = plt.figure()
-ax9 = fig9.add_subplot(111)
+ax9 = fig9.add_subplot(111, aspect='equal')
 for p in [
     patches.Rectangle(
         (0.03, 0.1), 0.2, 0.6, fill=False,
