@@ -11,5 +11,6 @@ Shapes
 - `Circle </matplotlib/shapes/circle/>`_
 - `Regular Polygon </matplotlib/shapes/reg-polygon/>`_
 - `Wedge </matplotlib/shapes/wedge/>`_
+- `Arrow </matplotlib/shapes/arrow/>`_
 
 .. footer:: Copyright 2014 `Matthias Eisen </>`__
