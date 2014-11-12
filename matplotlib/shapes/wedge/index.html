@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Matplotlib by Example</title>
+<link rel="stylesheet" href="/docutils_basic.css" type="text/css" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19171136-1', 'auto');
+    ga('send', 'pageview');
+</script> 
+</head>
+<body>
+<div class="header">
+<a class="reference external" href="/">Home</a> &gt; <a class="reference external" href="/matplotlib/">Matplotlib by Example</a> &gt; <a class="reference external" href="/matplotlib/shapes/">Shapes</a> &gt; <a class="reference external" href="/matplotlib/shapes/wedge/">Wedge</a>
+<hr class="header"/>
+</div>
+<div class="document" id="id1">
+<h1 class="title">Matplotlib by Example</h1>
+<h2 class="subtitle" id="id2">Wedge</h2>
+
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#hello-wedge" id="id3">1&nbsp;&nbsp;&nbsp;Hello Wedge</a></li>
+<li><a class="reference internal" href="#remove-background" id="id4">2&nbsp;&nbsp;&nbsp;Remove Background</a></li>
+<li><a class="reference internal" href="#background-patterns" id="id5">3&nbsp;&nbsp;&nbsp;Background Patterns</a></li>
+<li><a class="reference internal" href="#background-alpha" id="id6">4&nbsp;&nbsp;&nbsp;Background Alpha</a></li>
+<li><a class="reference internal" href="#background-color" id="id7">5&nbsp;&nbsp;&nbsp;Background Color</a></li>
+<li><a class="reference internal" href="#border-color" id="id8">6&nbsp;&nbsp;&nbsp;Border Color</a></li>
+<li><a class="reference internal" href="#border-width" id="id9">7&nbsp;&nbsp;&nbsp;Border Width</a></li>
+<li><a class="reference internal" href="#border-style" id="id10">8&nbsp;&nbsp;&nbsp;Border Style</a></li>
+<li><a class="reference internal" href="#partial-wedge" id="id11">9&nbsp;&nbsp;&nbsp;Partial Wedge</a></li>
+</ul>
+</div>
+<div class="section" id="hello-wedge">
+<h1><a class="toc-backref" href="#contents">1&nbsp;&nbsp;&nbsp;Hello Wedge</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig1</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax1</span> <span class="operator">=</span> <span class="name">fig1</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="name">ax1</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.3</span><span class="punctuation">,</span> <span class="literal number float">0.2</span><span class="punctuation">),</span>     <span class="comment"># (x,y)</span>
+        <span class="literal number float">0.5</span><span class="punctuation">,</span>            <span class="comment"># radius</span>
+        <span class="literal number integer">10</span><span class="punctuation">,</span>             <span class="comment"># theta1 (in degrees)</span>
+        <span class="literal number integer">120</span>             <span class="comment"># theta2</span>
+    <span class="punctuation">)</span>
+<span class="punctuation">)</span>
+<span class="name">fig1</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge1.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge1.png" src="wedge1.png" />
+</div>
+</div>
+<div class="section" id="remove-background">
+<h1><a class="toc-backref" href="#contents">2&nbsp;&nbsp;&nbsp;Remove Background</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig2</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax2</span> <span class="operator">=</span> <span class="name">fig2</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="name">ax2</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number float">0.2</span><span class="punctuation">),</span>
+        <span class="literal number float">0.5</span><span class="punctuation">,</span>
+        <span class="literal number integer">0</span><span class="punctuation">,</span>
+        <span class="literal number integer">90</span><span class="punctuation">,</span>
+        <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span>      <span class="comment"># remove background</span>
+    <span class="punctuation">)</span>
+<span class="punctuation">)</span>
+<span class="name">fig2</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge2.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge2.png" src="wedge2.png" />
+</div>
+</div>
+<div class="section" id="background-patterns">
+<h1><a class="toc-backref" href="#contents">3&nbsp;&nbsp;&nbsp;Background Patterns</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig3</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax3</span> <span class="operator">=</span> <span class="name">fig3</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.45</span><span class="punctuation">,</span> <span class="literal number float">0.3</span><span class="punctuation">),</span> <span class="literal number float">0.4</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">180</span><span class="punctuation">,</span>
+        <span class="name">hatch</span><span class="operator">=</span><span class="literal string">'/'</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.90</span><span class="punctuation">,</span> <span class="literal number float">0.3</span><span class="punctuation">),</span> <span class="literal number float">0.4</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">180</span><span class="punctuation">,</span>
+        <span class="name">hatch</span><span class="operator">=</span><span class="literal string">'</span><span class="literal string escape">\\</span><span class="literal string">'</span><span class="punctuation">,</span>
+        <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax3</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig3</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge3.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge3.png" src="wedge3.png" />
+</div>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">patterns</span> <span class="operator">=</span> <span class="punctuation">[</span><span class="literal string">'-'</span><span class="punctuation">,</span> <span class="literal string">'+'</span><span class="punctuation">,</span> <span class="literal string">'x'</span><span class="punctuation">,</span> <span class="literal string">'o'</span><span class="punctuation">,</span> <span class="literal string">'O'</span><span class="punctuation">,</span> <span class="literal string">'.'</span><span class="punctuation">,</span> <span class="literal string">'*'</span><span class="punctuation">]</span>  <span class="comment"># more patterns</span>
+<span class="name">fig4</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax4</span> <span class="operator">=</span> <span class="name">fig4</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.1</span> <span class="operator">+</span> <span class="punctuation">(</span><span class="name">i</span> <span class="operator">*</span> <span class="literal number float">0.13</span><span class="punctuation">),</span> <span class="literal number float">0.5</span><span class="punctuation">),</span>
+        <span class="literal number float">0.15</span><span class="punctuation">,</span>
+        <span class="literal number integer">45</span><span class="punctuation">,</span>
+        <span class="literal number integer">90</span><span class="punctuation">,</span>
+        <span class="name">hatch</span><span class="operator">=</span><span class="name">patterns</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">],</span>
+        <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span>
+    <span class="punctuation">)</span> <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name builtin">len</span><span class="punctuation">(</span><span class="name">patterns</span><span class="punctuation">))</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax4</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig4</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge4.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge4.png" src="wedge4.png" />
+</div>
+</div>
+<div class="section" id="background-alpha">
+<h1><a class="toc-backref" href="#contents">4&nbsp;&nbsp;&nbsp;Background Alpha</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig5</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax5</span> <span class="operator">=</span> <span class="name">fig5</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.23</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">alpha</span><span class="operator">=</span><span class="name builtin pseudo">None</span><span class="punctuation">,</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.46</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">alpha</span><span class="operator">=</span><span class="literal number float">1.0</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.69</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">alpha</span><span class="operator">=</span><span class="literal number float">0.6</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.92</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">alpha</span><span class="operator">=</span><span class="literal number float">0.1</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax5</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig5</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge5.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge5.png" src="wedge5.png" />
+</div>
+</div>
+<div class="section" id="background-color">
+<h1><a class="toc-backref" href="#contents">5&nbsp;&nbsp;&nbsp;Background Color</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig6</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax6</span> <span class="operator">=</span> <span class="name">fig6</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.23</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">facecolor</span><span class="operator">=</span><span class="name builtin pseudo">None</span>      <span class="comment"># Default</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.46</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">facecolor</span><span class="operator">=</span><span class="literal string">&quot;none&quot;</span>     <span class="comment"># No background</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.69</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">facecolor</span><span class="operator">=</span><span class="literal string">&quot;red&quot;</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.92</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">facecolor</span><span class="operator">=</span><span class="literal string">&quot;#00ffff&quot;</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax6</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig6</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge6.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge6.png" src="wedge6.png" />
+</div>
+</div>
+<div class="section" id="border-color">
+<h1><a class="toc-backref" href="#contents">6&nbsp;&nbsp;&nbsp;Border Color</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig7</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax7</span> <span class="operator">=</span> <span class="name">fig7</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.23</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">edgecolor</span><span class="operator">=</span><span class="name builtin pseudo">None</span>      <span class="comment"># Default</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.56</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">edgecolor</span><span class="operator">=</span><span class="literal string">&quot;none&quot;</span>     <span class="comment"># No border</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.69</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">edgecolor</span><span class="operator">=</span><span class="literal string">&quot;red&quot;</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.92</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">edgecolor</span><span class="operator">=</span><span class="literal string">&quot;#0000ff&quot;</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax7</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig7</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge7.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge7.png" src="wedge7.png" />
+</div>
+</div>
+<div class="section" id="border-width">
+<h1><a class="toc-backref" href="#contents">7&nbsp;&nbsp;&nbsp;Border Width</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig8</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax8</span> <span class="operator">=</span> <span class="name">fig8</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.23</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linewidth</span><span class="operator">=</span><span class="name builtin pseudo">None</span>      <span class="comment"># Default</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.46</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linewidth</span><span class="operator">=</span><span class="literal number integer">0</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.69</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linewidth</span><span class="operator">=</span><span class="literal number float">0.5</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.92</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linewidth</span><span class="operator">=</span><span class="literal number integer">3</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax8</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig8</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge8.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge8.png" src="wedge8.png" />
+</div>
+</div>
+<div class="section" id="border-style">
+<h1><a class="toc-backref" href="#contents">8&nbsp;&nbsp;&nbsp;Border Style</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig9</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax9</span> <span class="operator">=</span> <span class="name">fig9</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.23</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linestyle</span><span class="operator">=</span><span class="literal string">'solid'</span>   <span class="comment"># Default</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.46</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linestyle</span><span class="operator">=</span><span class="literal string">'dashed'</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.69</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linestyle</span><span class="operator">=</span><span class="literal string">'dashdot'</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.92</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.2</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span> <span class="name">fill</span><span class="operator">=</span><span class="name builtin pseudo">False</span><span class="punctuation">,</span>
+        <span class="name">linestyle</span><span class="operator">=</span><span class="literal string">'dotted'</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax9</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig9</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge9.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge9.png" src="wedge9.png" />
+</div>
+</div>
+<div class="section" id="partial-wedge">
+<h1><a class="toc-backref" href="#contents">9&nbsp;&nbsp;&nbsp;Partial Wedge</a></h1>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.patches</span> <span class="keyword namespace">as</span> <span class="name namespace">patches</span>
+
+<span class="name">fig10</span> <span class="operator">=</span> <span class="name">plt</span><span class="operator">.</span><span class="name">figure</span><span class="punctuation">()</span>
+<span class="name">ax10</span> <span class="operator">=</span> <span class="name">fig10</span><span class="operator">.</span><span class="name">add_subplot</span><span class="punctuation">(</span><span class="literal number integer">111</span><span class="punctuation">,</span> <span class="name">aspect</span><span class="operator">=</span><span class="literal string">'equal'</span><span class="punctuation">)</span>
+<span class="keyword">for</span> <span class="name">p</span> <span class="operator word">in</span> <span class="punctuation">[</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.23</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.15</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">270</span><span class="punctuation">,</span>
+        <span class="name">width</span><span class="operator">=</span><span class="literal number float">0.12</span>  <span class="comment"># draw wedge from radius to (radius - width)</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.46</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">),</span> <span class="literal number float">0.15</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">240</span><span class="punctuation">,</span>
+        <span class="name">width</span><span class="operator">=</span><span class="literal number float">0.1</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.49</span><span class="punctuation">,</span> <span class="literal number float">0.2</span><span class="punctuation">),</span> <span class="literal number float">0.15</span><span class="punctuation">,</span> <span class="literal number integer">90</span><span class="punctuation">,</span> <span class="literal number integer">360</span><span class="punctuation">,</span>
+        <span class="name">width</span><span class="operator">=</span><span class="literal number float">0.05</span>
+    <span class="punctuation">),</span>
+    <span class="name">patches</span><span class="operator">.</span><span class="name">Wedge</span><span class="punctuation">(</span>
+        <span class="punctuation">(</span><span class="literal number float">0.72</span><span class="punctuation">,</span> <span class="literal number float">0.6</span><span class="punctuation">),</span> <span class="literal number float">0.15</span><span class="punctuation">,</span> <span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">360</span><span class="punctuation">,</span>
+        <span class="name">width</span><span class="operator">=</span><span class="literal number float">0.13</span>
+    <span class="punctuation">),</span>
+<span class="punctuation">]:</span>
+    <span class="name">ax10</span><span class="operator">.</span><span class="name">add_patch</span><span class="punctuation">(</span><span class="name">p</span><span class="punctuation">)</span>
+<span class="name">fig10</span><span class="operator">.</span><span class="name">savefig</span><span class="punctuation">(</span><span class="literal string">'wedge10.png'</span><span class="punctuation">,</span> <span class="name">dpi</span><span class="operator">=</span><span class="literal number integer">90</span><span class="punctuation">,</span> <span class="name">bbox_inches</span><span class="operator">=</span><span class="literal string">'tight'</span><span class="punctuation">)</span>
+</pre>
+<div class="figure">
+<img alt="wedge10.png" src="wedge10.png" />
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+Copyright 2014 <a class="reference external" href="/">Matthias Eisen</a>
+</div>
+</body>
+</html>
